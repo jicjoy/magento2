@@ -1,0 +1,73 @@
+Banners,Banners
+"Add Banner","Add Banner"
+"Save Banner","Save Banner"
+"Delete Banner","Delete Banner"
+"Save and Continue Edit","Save and Continue Edit"
+"New Banner","New Banner"
+Content,Content
+"Default Content","Default Content"
+"No Default Content","No Default Content"
+"Banner Default Content for All Store Views","Banner Default Content for All Store Views"
+"Store View Specific Content","Store View Specific Content"
+"Use Default","Use Default"
+"Related Promotions","Related Promotions"
+ID,ID
+Rule,Rule
+"Start Date","Start Date"
+"End Date","End Date"
+Status,Status
+"Banner Properties","Banner Properties"
+"Banner Name","Banner Name"
+Active,Active
+Inactive,Inactive
+"Applies To","Applies To"
+"Any Banner Type","Any Banner Type"
+"Specified Banner Types","Specified Banner Types"
+"Specify Types","Specify Types"
+"Banner Information","Banner Information"
+Banner,Banner
+"Banner Type","Banner Type"
+Visibility,Visibility
+Delete,Delete
+"Are you sure you want to delete these banners?","Are you sure you want to delete these banners?"
+"Related Banners","Related Banners"
+Position,Position
+"This rule no longer exists.","This rule no longer exists."
+"This banner does not exist.","This banner does not exist."
+"You deleted the banner.","You deleted the banner."
+"Something went wrong while deleting banner data. Please review the action log and try again.","Something went wrong while deleting banner data. Please review the action log and try again."
+"We cannot find a banner to delete.","We cannot find a banner to delete."
+"This banner no longer exists.","This banner no longer exists."
+"Edit Banner","Edit Banner"
+"Please select a banner(s).","Please select a banner(s)."
+"You deleted %1 record(s).","You deleted %1 record(s)."
+"Something went wrong while mass-deleting banners. Please review the action log and try again.","Something went wrong while mass-deleting banners. Please review the action log and try again."
+"You saved the banner.","You saved the banner."
+"We cannot save the banner.","We cannot save the banner."
+"Please enter a name.","Please enter a name."
+"Please specify default content for at least one store view.","Please specify default content for at least one store view."
+"-- None --","-- None --"
+Error,Error
+"Related Cart Price Rules","Related Cart Price Rules"
+"Related Catalog Price Rules","Related Catalog Price Rules"
+"Content Area","Content Area"
+Footer,Footer
+Header,Header
+"Left Column","Left Column"
+"Right Column","Right Column"
+"Manage Banners","Manage Banners"
+"Banner Rotator","Banner Rotator"
+"Displays Specified or Promotion Banners","Displays Specified or Promotion Banners"
+"Banners to Display","Banners to Display"
+"Specified Banners","Specified Banners"
+"Shopping Cart Promotions Related","Shopping Cart Promotions Related"
+"Catalog Promotions Related","Catalog Promotions Related"
+"Restrict by Banner Types","Restrict by Banner Types"
+"Rotation Mode","Rotation Mode"
+"Display all instead of rotating","Display all instead of rotating"
+"One at the time, Random","One at the time, Random"
+"One at the time, Series","One at the time, Series"
+"One at the time, Shuffle","One at the time, Shuffle"
+"Specify Banners","Specify Banners"
+"Banner Block Template","Banner Block Template"
+"Banner Inline Template","Banner Inline Template"

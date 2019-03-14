@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../../../../dev/tests/acceptance/vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Test/etc/testSchema.xsd">
+    <test name="RestrictedUserRoleForProductRemovalTest">
+        <annotations>
+            <title value="Restricted admin user should not be able to remove product from other websites"/>
+            <description value="Restricted admin not able to remove products from websites other than access provided by the user role"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MAGETWO-92850"/>
+            <group value="userRole"/>
+        </annotations>
+        <before>
+            <createData entity="adminProductInWebsiteRole" stepKey="restrictedAdminRoleMainWebsite"/>
+            <createData entity="SimpleSubCategory" stepKey="createCategory"/>
+            <createData entity="SimpleProduct" stepKey="createSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="restrictedWebUser" stepKey="restrictedAdminUserMainWebsite"/>
+        </before>
+        <after>
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteSimpleProduct1"/>
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="LoginActionGroup" stepKey="loginAsAdminWithAllAccess"/>
+            <actionGroup ref="AdminDeleteWebsiteActionGroup" stepKey="deleteWebsite">
+                <argument name="websiteName" value="Second Website"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteUserRoleActionGroup" stepKey="deleteRestrictedRole">
+                <argument name="roleName" value="$$restrictedAdminRoleMainWebsite.rolename$$"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteUserActionGroup" stepKey="deleteRestrictedUser">
+                <argument name="user_restricted" value="$$restrictedAdminUserMainWebsite$$"/>
+            </actionGroup>
+        </after>
+        <actionGroup ref="LoginActionGroup" stepKey="loginAsAdmin"/>
+        <actionGroup ref="AdminCreateWebsiteActionGroup" stepKey="addnewWebsite">
+            <argument name="newWebsiteName" value="Second Website"/>
+            <argument name="websiteCode" value="second_website"/>
+        </actionGroup>
+        <actionGroup ref="AdminCreateNewStoreGroupActionGroup" stepKey="createNewStoreGroup">
+            <argument name="website" value="Second Website"/>
+            <argument name="storeGroupName" value="Second Store"/>
+            <argument name="storeGroupCode" value="second_store"/>
+        </actionGroup>
+        <actionGroup ref="AdminCreateStoreViewActionGroup" stepKey="createStoreView">
+            <argument name="storeGroup" value="secondStoreGroup"/>
+            <argument name="customStore" value="secondStore"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssignUserRoleActionGroup" stepKey="assigningUserRole">
+            <argument name="user_restricted" value="$$restrictedAdminUserMainWebsite$$"/>
+            <argument name="roleName" value="$$restrictedAdminRoleMainWebsite.rolename$$"/>
+        </actionGroup>
+        <actionGroup ref="logout" stepKey="logout1"/>
+
+        <!--login as restricted user-->
+        <amOnPage stepKey="amOnAdminLoginPage" url="{{AdminLoginPage.url}}"/>
+        <fillField selector="{{AdminLoginFormSection.username}}" userInput="$$restrictedAdminUserMainWebsite.username$$" stepKey="fillUsername" />
+        <fillField selector="{{AdminLoginFormSection.password}}" userInput="$$restrictedAdminUserMainWebsite.password$$" stepKey="fillPassword"/>
+        <click selector="{{AdminLoginFormSection.signIn}}" stepKey="clickOnSignIn2" />
+
+        <!--Search for the product-->
+        <actionGroup ref="SearchForProductOnBackendActionGroup" stepKey="searchForProduct">
+            <argument name="product" value="$$createSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="OpenEditProductOnBackendActionGroup" stepKey="openEditProduct">
+            <argument name="product" value="$$createSimpleProduct$$"/>
+        </actionGroup>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingMask"/>
+        <!--Open the ProductIn Website section and see that the website checkboxes are disabled-->
+        <click selector="{{ProductInWebsitesSection.sectionHeader}}" stepKey="openProductInWebsitesSection1"/>
+        <dontSeeElementInDOM selector=" {{ProductInWebsitesSection.isWebsiteDisabled('Second Website')}}" stepKey="dontSeeTheDisabledCheckbox"/>
+        <actionGroup ref="logout" stepKey="logout2"/>
+       </test>
+</tests>

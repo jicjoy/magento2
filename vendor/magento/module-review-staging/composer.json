@@ -1,0 +1,28 @@
+{
+    "name": "magento/module-review-staging",
+    "description": "N/A",
+    "require": {
+        "php": "~7.0.13|~7.1.0",
+        "magento/module-catalog": "102.0.*",
+        "magento/module-review": "100.2.*",
+        "magento/framework": "101.0.*",
+        "lib-libxml": "*",
+        "magento/magento-composer-installer": "*"
+    },
+    "suggest": {
+        "magento/module-staging": "101.0.*"
+    },
+    "type": "magento2-module",
+    "version": "100.2.3",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Magento\\ReviewStaging\\": ""
+        }
+    }
+}

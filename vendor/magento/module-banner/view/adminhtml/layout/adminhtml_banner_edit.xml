@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="jquery/fileUploader/css/jquery.fileupload-ui.css"/>
+    </head>
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="left">
+            <block class="Magento\Banner\Block\Adminhtml\Banner\Edit\Tabs" name="banner_edit_tabs">
+                <block class="Magento\Banner\Block\Adminhtml\Banner\Edit\Tab\Properties" name="banner_edit_tab_properties"/>
+                <block class="Magento\Banner\Block\Adminhtml\Banner\Edit\Tab\Content" name="banner_edit_tab_content"/>
+                <block class="Magento\Banner\Block\Adminhtml\Banner\Edit\Tab\Promotions" name="banner_edit_tab_promotions" template="Magento_Banner::edit/tab/promotions.phtml">
+                    <block class="Magento\Banner\Block\Adminhtml\Banner\Edit\Tab\Promotions\Salesrule" name="banner_salesrule_grid"/>
+                    <block class="Magento\Backend\Block\Widget\Grid\Serializer" name="salesrule_grid_serializer">
+                        <arguments>
+                            <argument name="grid_block" xsi:type="string">banner_salesrule_grid</argument>
+                            <argument name="callback" xsi:type="string">getRelatedSalesRule</argument>
+                            <argument name="input_element_name" xsi:type="string">banner_sales_rules</argument>
+                            <argument name="reload_param_name" xsi:type="string">selected_salesrules</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Banner\Block\Adminhtml\Banner\Edit\Tab\Promotions\Catalogrule" name="banner_catalogrule_grid"/>
+                    <block class="Magento\Backend\Block\Widget\Grid\Serializer" name="catalogrule_grid_serializer">
+                        <arguments>
+                            <argument name="grid_block" xsi:type="string">banner_catalogrule_grid</argument>
+                            <argument name="callback" xsi:type="string">getRelatedCatalogRule</argument>
+                            <argument name="input_element_name" xsi:type="string">banner_catalog_rules</argument>
+                            <argument name="reload_param_name" xsi:type="string">selected_catalogrules</argument>
+                        </arguments>
+                    </block>
+                </block>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">properties_section</argument>
+                    <argument name="block" xsi:type="string">banner_edit_tab_properties</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">content_section</argument>
+                    <argument name="block" xsi:type="string">banner_edit_tab_content</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">promotions_section</argument>
+                    <argument name="block" xsi:type="string">banner_edit_tab_promotions</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\Banner\Block\Adminhtml\Banner\Edit" name="banner_edit_content"/>
+        </referenceContainer>
+    </body>
+</page>

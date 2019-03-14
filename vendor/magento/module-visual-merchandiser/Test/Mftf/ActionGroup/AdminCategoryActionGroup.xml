@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="../../../../../../../dev/tests/acceptance/vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="OpenProductsInCategorySection">
+        <scrollTo selector="{{AdminCategorySEOSection.SectionHeader}}" stepKey="scrollToSection" />
+        <conditionalClick selector="{{AdminCategoryProductsSection.sectionHeader}}" dependentSelector="{{AdminCategoryProductsSection.matchByRule}}" visible="false" stepKey="openProductsInCategory" />
+        <waitForPageLoad stepKey="waitForPageLoad" time="60"/>
+    </actionGroup>
+
+    <!-- Go to add products to a category by product SKUs-->
+    <actionGroup name="GoToAddProductsBySku">
+        <click selector="{{AdminCategoryProductsSection.addProducts}}" stepKey="clickAddProductsToCategory"/>
+        <click selector="{{AdminCategoryAddProductsModalSection.addProductBySku}}" stepKey="clickAddBySkuTab"/>
+    </actionGroup>
+
+    <actionGroup name="SwitchToGridModeProductInCategory">
+        <conditionalClick selector="{{AdminCategoryProductsSection.gridMode}}" dependentSelector="{{AdminCategoryProductsTileSection.totalCount}}" visible="true" stepKey="switchToGrid"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+    </actionGroup>
+
+    <actionGroup name="SwitchToTileModeProductInCategory">
+        <conditionalClick selector="{{AdminCategoryProductsSection.tileMode}}" dependentSelector="{{AdminCategoryProductsGridSection.totalCount}}" visible="true" stepKey="switchToTile"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+    </actionGroup>
+
+    <actionGroup name="SeeProductInProductCategoryTileForCurrentCategory">
+        <arguments>
+            <argument name="product"/>
+        </arguments>
+        <see selector="{{AdminCategoryProductsTileSection.productInfo}}" userInput="{{product.name}}" stepKey="seeProductNameInTile"/>
+        <see selector="{{AdminCategoryProductsTileSection.productInfo}}" userInput="{{product.sku}}" stepKey="seeProductSkuInTile"/>
+        <see selector="{{AdminCategoryProductsTileSection.productInfo}}" userInput="{{product.price}}" stepKey="seeProductPriceInTile"/>
+    </actionGroup>
+
+    <actionGroup name="DisableMatchProductsByRule">
+        <!-- Requires Products in Category section is opened -->
+        <conditionalClick selector="{{AdminCategoryProductsSection.matchByRule}}" dependentSelector="{{AdminCategoryProductsSection.addProducts}}" visible="false" stepKey="dontMatchByRule"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+    </actionGroup>
+
+    <actionGroup name="SortProductsByCriteriaInCategory">
+        <arguments>
+            <argument name="criteria" type="string"/>
+        </arguments>
+        <selectOption selector="{{AdminCategoryProductsSection.sortOrder}}" userInput="{{criteria}}" stepKey="selectSortOrder"/>
+        <click selector="{{AdminCategoryProductsSection.sort}}" stepKey="clickSort"/>
+    </actionGroup>
+    <actionGroup name="EnableMatchProductsByRule">
+        <!-- Requires Products in Category section is opened -->
+        <conditionalClick selector="{{AdminCategoryProductsSection.matchByRule}}" dependentSelector="{{AdminCategoryProductsSection.addProducts}}" visible="true" stepKey="matchByRule" />
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+    </actionGroup>
+</actionGroups>

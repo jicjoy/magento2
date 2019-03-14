@@ -1,0 +1,27 @@
+{
+    "name": "magento/module-bundle-staging",
+    "description": "N/A",
+    "require": {
+        "php": "~7.0.13|~7.1.0",
+        "magento/module-catalog-staging": "100.2.*",
+        "magento/module-staging": "101.0.*",
+        "magento/module-bundle": "100.2.*",
+        "magento/module-ui": "101.0.*",
+        "magento/module-catalog": "102.0.*",
+        "magento/module-store": "100.2.*",
+        "magento/framework": "101.0.*"
+    },
+    "type": "magento2-module",
+    "version": "100.2.3",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Magento\\BundleStaging\\": ""
+        }
+    }
+}

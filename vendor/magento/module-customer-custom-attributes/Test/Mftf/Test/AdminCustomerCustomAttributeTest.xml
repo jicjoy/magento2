@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCustomerCustomAttributeTest">
+        <annotations>
+            <features value="CustomerCustomAttributes"/>
+            <stories value="MAGETWO-95709: Exception is thrown when Customer Address attribute with unique admin options is saved"/>
+            <title value="Check default attribute visibility on forms"/>
+            <description value="Check that attribute appears in the appropriate forms when Use in Forms is left empty"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MAGETWO-95918"/>
+            <group value="customer"/>
+        </annotations>
+        <before>
+            <!--Login as admin-->
+            <actionGroup ref="LoginAsAdmin" stepKey="LoginAsAdmin"/>
+        </before>
+        <after>
+            <actionGroup ref="AdminDeleteCustomerAttribute" stepKey="adminDeleteSecondCustomerAttribute">
+                <argument name="attributeVar" value="MultipleAttribute"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logOut"/>
+        </after>
+
+        <!--Create new Customer attribute-->
+        <actionGroup ref="AdminCreateCustomerNewAttribute" stepKey="adminCreateCustomerAttribute">
+            <argument name="attributeVar" value="MultipleAttribute"/>
+        </actionGroup>
+    </test>
+</tests>

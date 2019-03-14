@@ -1,0 +1,28 @@
+{
+    "name": "magento/module-swagger-webapi-async",
+    "description": "N/A",
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": "~7.0.13|~7.1.0",
+        "magento/framework": "101.0.*",
+        "magento/module-swagger": "100.2.*"
+    },
+    "suggest": {
+        "magento/module-config": "101.0.*"
+    },
+    "type": "magento2-module",
+    "version": "100.2.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Magento\\SwaggerWebapiAsync\\": ""
+        }
+    }
+}

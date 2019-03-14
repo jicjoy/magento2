@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="../../../../../../../dev/tests/acceptance/vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminCreateCustomerNewAttribute">
+        <arguments>
+            <argument name="attributeVar"/>
+        </arguments>
+        <amOnPage url="{{AdminCustomerAttributesIndexPage.url}}" stepKey="navigateToCustomerAttributes"/>
+        <waitForPageLoad stepKey="waitForCustomerAttributePageLoaded"/>
+        <click selector="{{AdminMainActionsSection.add}}" stepKey="clickToCreateAttribute"/>
+        <waitForPageLoad stepKey="waitForNewAttributePageLoaded"/>
+        <fillField selector="{{AdminAttributesEditSection.label}}" userInput="{{attributeVar.label}}" stepKey="typeDefaultLabel"/>
+        <fillField selector="{{AdminAttributesEditSection.code}}" userInput="{{attributeVar.code}}" stepKey="typeAttributeCode"/>
+        <selectOption selector="{{AdminAttributesEditSection.inputType}}" userInput="{{attributeVar.inputType}}" stepKey="selectInputType"/>
+        <selectOption selector="{{AdminAttributesEditSection.valuesRequired}}" userInput="No" stepKey="setValuesRequired" />
+        <fillField selector="{{AdminCustomerAttributesEditSection.sortOrder}}" userInput="{{attributeVar.sortOrder}}" stepKey="typeSortOrder"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="saveAttribute"/>
+        <waitForPageLoad stepKey="waitForAttributeSaved"/>
+        <see selector="{{AdminMessagesSection.success}}" userInput="You saved the customer attribute." stepKey="verifyAttributeCreated"/>
+    </actionGroup>
+
+    <actionGroup name="AdminDeleteCustomerAttribute">
+        <arguments>
+            <argument name="attributeVar" defaultValue="Attribute"/>
+        </arguments>
+        <amOnPage url="{{AdminCustomerAttributesIndexPage.url}}" stepKey="amOnCustomerAttributesGridPage"/>
+        <waitForPageLoad stepKey="waitForCustomerAttributesGridIsOpened"/>
+        <fillField selector="{{AdminCustomerAttributesGridSection.filterByCode}}" userInput="{{attributeVar.code}}" stepKey="typeAttributeLabel"/>
+        <click selector="{{AdminDataGridHeaderSection.applyFilters}}" stepKey="clickToSearchButton"/>
+        <waitForPageLoad stepKey="waitForResult"/>
+        <click selector="{{AdminAttributesGridSection.attribute(attributeVar.code)}}" stepKey="clickToSelectAttribute"/>
+        <waitForPageLoad stepKey="waitForAttributePageLoaded"/>
+        <click selector="{{AdminMainActionsSection.delete}}" stepKey="clickOnDeleteButton"/>
+        <waitForPageLoad stepKey="waitConfirmPageLoaded"/>
+        <click selector="{{AdminConfirmationModalSection.ok}}" stepKey="clickToConfirm"/>
+        <waitForPageLoad stepKey="waitAttributeDeleted"/>
+        <conditionalClick selector="{{AdminDataGridHeaderSection.clearFilters}}" dependentSelector="{{AdminDataGridHeaderSection.clearFilters}}" visible="true" stepKey="clickToResetFilters"/>
+        <waitForPageLoad stepKey="waitForFiltersReset"/>
+    </actionGroup>
+</actionGroups>

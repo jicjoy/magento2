@@ -1,0 +1,26 @@
+{
+    "name": "magento/module-reward-staging",
+    "description": "N/A",
+    "require": {
+        "php": "~7.0.13|~7.1.0",
+        "magento/module-sales-rule": "101.0.*",
+        "magento/module-reward": "101.0.*",
+        "magento/framework": "101.0.*"
+    },
+    "suggest": {
+        "magento/module-staging": "101.0.*"
+    },
+    "type": "magento2-module",
+    "version": "100.2.3",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Magento\\RewardStaging\\": ""
+        }
+    }
+}

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../../../../dev/tests/acceptance/vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Test/etc/testSchema.xsd">
+    <test name="RestrictedAdminCatalogMassActionPermissionTest">
+        <annotations>
+            <title value="Catalog Mass action for users with limited permission"/>
+            <description value="Restricted admin user with access to Products should not have access for Mass action"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MAGETWO-92908"/>
+            <group value="userRole"/>
+        </annotations>
+
+        <before>
+            <createData entity="adminRestrictedProductRole" stepKey="restrictedAdminRoleCatalog"/>
+            <createData entity="SimpleSubCategory" stepKey="createCategory"/>
+            <createData entity="SimpleProduct" stepKey="createSimpleProduct1">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProduct" stepKey="createSimpleProduct2">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="SimpleProduct" stepKey="createSimpleProduct3">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <createData entity="restrictedWebUser" stepKey="createRestrictedAdminUser"/>
+        </before>
+        <after>
+            <deleteData createDataKey="createSimpleProduct1" stepKey="deleteSimpleProduct1"/>
+            <deleteData createDataKey="createSimpleProduct2" stepKey="deleteSimpleProduct2"/>
+            <deleteData createDataKey="createSimpleProduct3" stepKey="deleteSimpleProduct3"/>
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="LoginActionGroup" stepKey="loginAsAdminAllWebAccess"/>
+            <actionGroup ref="AdminDeleteUserRoleActionGroup" stepKey="deleteRestrictedRole">
+                <argument name="roleName" value="$$restrictedAdminRoleCatalog.rolename$$"/>
+            </actionGroup>
+            <amOnPage url="admin/admin/auth/logout/" stepKey="amOnLogoutPage"/>
+        </after>
+
+        <actionGroup ref="LoginActionGroup" stepKey="loginAsAdmin"/>
+
+        <amOnPage url="{{AdminUsersPage.url}}" stepKey="amOnAdminUsersPage"/>
+        <fillField selector="{{AdminUserGridSection.usernameFilterTextField}}" userInput="$$createRestrictedAdminUser.username$$" stepKey="fillUsernameSearch"/>
+        <click selector="{{AdminUserGridSection.searchButton}}" stepKey="clickSearchButton"/>
+        <waitForPageLoad stepKey="wait1" time="10"/>
+        <see selector="{{AdminUserGridSection.usernameInFirstRow}}" userInput="$$createRestrictedAdminUser.username$$" stepKey="seeFoundUsername"/>
+        <click selector="{{AdminUserGridSection.searchResultFirstRow}}" stepKey="clickFoundUsername"/>
+        <waitForPageLoad stepKey="wait2" time="30"/>
+        <seeInField selector="{{AdminEditUserSection.usernameTextField}}" userInput="$$createRestrictedAdminUser.username$$" stepKey="seeUsernameInField"/>
+        <fillField selector="{{AdminEditUserSection.currentPasswordField}}" userInput="{{_ENV.MAGENTO_ADMIN_PASSWORD}}" stepKey="fillCurrentPassword"/>
+        <scrollToTopOfPage stepKey="scrollToTopOfPage" />
+        <click selector="{{AdminEditUserSection.userRoleTab}}" stepKey="clickUserRoleTab"/>
+
+        <fillField selector="{{AdminEditUserSection.roleNameFilterTextField}}" userInput="$$restrictedAdminRoleCatalog.rolename$$" stepKey="fillRoleNameSearch"/>
+        <click selector="{{AdminEditUserSection.searchButton}}" stepKey="clickSearchButtonUserRole"/>
+        <waitForPageLoad stepKey="wait3" time="10"/>
+        <see selector="{{AdminEditUserSection.roleNameInFirstRow}}" userInput="$$restrictedAdminRoleCatalog.rolename$$" stepKey="seeFoundRoleName"/>
+        <click selector="{{AdminEditUserSection.searchResultFirstRow}}" stepKey="clickFoundRoleName"/>
+        <click selector="{{AdminEditUserSection.saveButton}}" stepKey="clickSaveButton"/>
+        <waitForPageLoad stepKey="wait4" time="10"/>
+        <see selector="{{AdminUserGridSection.successMessage}}" userInput="You saved the user." stepKey="saveUserSuccessMessage"/>
+        <amOnPage url="admin/admin/auth/logout/" stepKey="amOnLogoutPage2"/>
+
+        <amOnPage url="{{AdminLoginPage.url}}" stepKey="adminLoginPage"/>
+        <fillField selector="{{AdminLoginFormSection.username}}" userInput="$$createRestrictedAdminUser.username$$" stepKey="fillUsernameRestrictedUser"/>
+        <fillField selector="{{AdminLoginFormSection.password}}" userInput="$$createRestrictedAdminUser.password$$" stepKey="fillPasswordRestricted" />
+        <click selector="{{AdminLoginFormSection.signIn}}" stepKey="clickOnSignIn2"/>
+        <amOnPage url="{{AdminProductIndexPage.url}}" stepKey="amOnProductGridPage"/>
+        <waitForPageLoad stepKey="waitForProductIndexPageLoad"/>
+
+        <!-- Verify that the restricted user doesn't have access to Mass action list -->
+        <dontSeeElementInDOM selector="{{AdminProductGridSection.bulkActionOption('Delete')}}" stepKey="dontSeeDeleteMassActionItem1"/>
+        <dontSeeElementInDOM selector="{{AdminProductGridSection.bulkActionOption('Change status')}}" stepKey="dontSeeChangeStatusMassAction"/>
+        <dontSeeElementInDOM selector="{{AdminProductGridSection.bulkActionOption('Update attributes')}}" stepKey="dontSeeUpdateAttributeMassAction"/>
+        <amOnPage url="admin/admin/auth/logout/" stepKey="amOnLogoutPage"/>
+        <waitForPageLoad stepKey="waitForLoginPage"/>
+    </test>
+</tests>

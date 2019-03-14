@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../../../dev/tests/acceptance/vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Page/etc/SectionObject.xsd">
+    <section name="AdminCategoryProductsTileSection">
+        <element name="totalCount" type="text" selector="span[data-ui-id*='tile-total-count']"/>
+        <element name="removeProductByIndex" type="button" selector=".product_tile:nth-of-type({{n}}) .remove-product.icon-close-mage" parameterized="true" timeout="30"/>
+        <element name="productInfo" type="text" selector="#tab_tile #catalog_category_merchandiser_list>li .info-block span"/>
+    </section>
+</sections>

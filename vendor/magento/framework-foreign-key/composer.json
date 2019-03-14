@@ -1,0 +1,22 @@
+{
+    "name": "magento/framework-foreign-key",
+    "description": "N/A",
+    "type": "magento2-library",
+    "version": "100.2.1",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "require": {
+        "php": "~7.0.13|~7.1.0",
+        "magento/framework": "101.0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Magento\\Framework\\ForeignKey\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}

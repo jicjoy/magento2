@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="../../../../../../../dev/tests/acceptance/vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Page/etc/SectionObject.xsd">
+    <section name="AdminCustomerAttributesOptionEditSection">
+        <element name="optionsTab" type="button" selector="//*[@id='magento_customercustomattributes_address_attribute_edit_tabs_options']/span[contains(text(),'Options')]"/>
+        <element name="addOptionsButton" type="button" selector="#add_new_option_button"/>
+        <element name="adminOptionsField" type="input" selector="//input[@name='option[value][option_{{arg1}}][0]']" parameterized="true"/>
+    </section>
+</sections>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="../../../../../../../dev/tests/acceptance/vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Page/etc/SectionObject.xsd">
+    <section name="AdminCategoryAddProductsModalSection">
+        <element name="searchAllProducts" type="button" selector="[aria-labelledby='catalog_category_add_product_name_tab']" timeout="30"/>
+        <element name="searchLoadingMask" type="text" selector="#catalog_category_add_product_name_tab_content .admin__data-grid-loading-mask"/>
+        <element name="filters" type="button" selector="#catalog_category_add_product_tabs_content button[data-action='grid-filter-expand']" timeout="30"/>
+        <element name="nameFilter" type="input" selector="#catalog_category_add_product_tabs_content .admin__control-text[name='name']"/>
+        <element name="applyFilters" type="button" selector="#catalog_category_add_product_tabs_content button[data-action='grid-filter-apply']" timeout="30"/>
+        <element name="gridRowCheck" type="checkbox" selector="table.data-grid tr:nth-of-type({{row}}) input.admin__actions-switch-checkbox" parameterized="true"/>
+        <element name="gridActionToggle" type="button" selector="button.action-multicheck-toggle"/>
+        <element name="gridSelectAll" type="button" selector="ul.action-menu li:nth-child(1)" timeout="30"/>
+        <element name="addProductBySku" type="button" selector="[aria-labelledby='catalog_category_add_product_sku_tab']"/>
+        <element name="productSkuInput" type="textarea" selector="#add_product_sku"/>
+        <element name="assign" type="button" selector="#add_product_sku_add_button" timeout="30"/>
+        <element name="remove" type="button" selector="#add_product_sku_remove_button" timeout="30"/>
+        <element name="saveClose" type="button" selector=".modal-footer button[data-role='action']" timeout="30"/>
+        <element name="resetFilters" type="button" selector="#catalog_category_add_product_name_tab_content button[data-action='grid-filter-reset']"/>
+        <element name="expandFiltes" type="button" selector="#catalog_category_add_product_tabs_content button[data-action='grid-filter-expand']._active"/>
+        <element name="sku" type="input" selector="#catalog_category_add_product_tabs_content .admin__data-grid-filters [name='sku']"/>
+        <element name="errorMessage" type="text" selector=".message.message-error.error>div"/>
+        <element name="successMessage" type="text" selector=".message.message-success.success>div"/>
+    </section>
+</sections>

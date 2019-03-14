@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="../../../../../../../dev/tests/acceptance/vendor/magento/magento2-functional-testing-framework/src/Magento/FunctionalTestingFramework/Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminCreateCustomerAddressAttributeWithOptions">
+        <arguments>
+            <argument name="attributeVar"/>
+        </arguments>
+        <amOnPage url="{{AdminCustomerAddressAttributesIndexPage.url}}" stepKey="navigateToCustomerAddress"/>
+        <waitForPageLoad stepKey="waitForCustomerAttributePageLoaded"/>
+        <click selector="{{AdminMainActionsSection.add}}" stepKey="clickToCreateAttribute"/>
+        <waitForPageLoad stepKey="waitForNewAttributePageLoaded"/>
+        <fillField selector="{{AdminAttributesEditSection.label}}" userInput="{{attributeVar.label}}" stepKey="typeDefaultLabel"/>
+        <fillField selector="{{AdminAttributesEditSection.code}}" userInput="{{attributeVar.code}}" stepKey="typeAttributeCode"/>
+        <selectOption selector="{{AdminAttributesEditSection.inputType}}" userInput="{{attributeVar.inputType}}" stepKey="selectInputType"/>
+        <selectOption selector="{{AdminAttributesEditSection.valuesRequired}}" userInput="No" stepKey="setValuesRequired" />
+        <selectOption selector="{{AdminCustomerAttributesEditSection.showInSF}}" userInput="Yes" stepKey="setSFOption" />
+        <fillField selector="{{AdminCustomerAttributesEditSection.sortOrder}}" userInput="{{attributeVar.sortOrder}}" stepKey="typeSortOrder"/>
+        <selectOption selector="{{AdminCustomerAttributesEditSection.formToUse}}" parameterArray="[{{attributeVar.formToUse}}]" stepKey="setFormToUse"/>
+        <scrollTo selector="{{AdminHeaderSection.pageTitle}}" stepKey="scrollToPageTitle"/>
+        <!--Go to Manage Label / Options -->
+        <waitForElementVisible selector="{{AdminCustomerAttributesOptionEditSection.optionsTab}}" stepKey="waitForOptionsBeVisible"/>
+        <click selector="{{AdminCustomerAttributesOptionEditSection.optionsTab}}" stepKey="clickToOptionsItem"/>
+        <waitForPageLoad stepKey="waitForOptionsPageOpened"/>
+        <click selector="{{AdminCustomerAttributesOptionEditSection.addOptionsButton}}" stepKey="clickToAddOptions"/>
+        <waitForElementVisible selector="{{AdminCustomerAttributesOptionEditSection.adminOptionsField('0')}}" stepKey="waitForFirstOptionsBeVisible"/>
+        <fillField selector="{{AdminCustomerAttributesOptionEditSection.adminOptionsField('0')}}" userInput="{{attributeVar.firstOption}}" stepKey="fillFirstOptionsName"/>
+        <click selector="{{AdminCustomerAttributesOptionEditSection.addOptionsButton}}" stepKey="clickToAddSecondOptions"/>
+        <waitForElementVisible selector="{{AdminCustomerAttributesOptionEditSection.adminOptionsField('1')}}" stepKey="waitForSecondOptionsBeVisible"/>
+        <fillField selector="{{AdminCustomerAttributesOptionEditSection.adminOptionsField('1')}}" userInput="{{attributeVar.secondOption}}" stepKey="fillSecondOptionsName"/>
+        <click selector="{{AdminMainActionsSection.save}}" stepKey="saveAttribute"/>
+        <waitForPageLoad stepKey="waitForAttributeSaved"/>
+        <see selector="{{AdminMessagesSection.success}}" userInput="You saved the customer address attribute." stepKey="verifyAttributeCreated"/>
+    </actionGroup>
+
+    <actionGroup name="AdminDeleteCustomerAddressAttribute">
+        <arguments>
+            <argument name="attributeVar" defaultValue="Attribute"/>
+        </arguments>
+        <amOnPage url="{{AdminCustomerAddressAttributesIndexPage.url}}" stepKey="amOnCustomerAddressAttributesGridPage"/>
+        <waitForPageLoad stepKey="waitForCustomerAddressAttributesGridIsOpened"/>
+        <fillField selector="{{AdminCustomerAddressAttributesGridSection.filterByCode}}" userInput="{{attributeVar.code}}" stepKey="typeAttributeLabel"/>
+        <click selector="{{AdminDataGridHeaderSection.applyFilters}}" stepKey="clickToSearchButton"/>
+        <waitForPageLoad stepKey="waitForResult"/>
+        <click selector="{{AdminAttributesGridSection.attribute(attributeVar.code)}}" stepKey="clickToSelectAttribute"/>
+        <waitForPageLoad stepKey="waitForAttributePageLoaded"/>
+        <click selector="{{AdminMainActionsSection.delete}}" stepKey="clickOnDeleteButton"/>
+        <waitForPageLoad stepKey="waitConfirmPageLoaded"/>
+        <click selector="{{AdminConfirmationModalSection.ok}}" stepKey="clickToConfirm"/>
+        <waitForPageLoad stepKey="waitAttributeDeleted"/>
+        <conditionalClick selector="{{AdminDataGridHeaderSection.clearFilters}}" dependentSelector="{{AdminDataGridHeaderSection.clearFilters}}" visible="true" stepKey="clickToResetFilters"/>
+        <waitForPageLoad stepKey="waitForFiltersReset"/>
+    </actionGroup>
+</actionGroups>
