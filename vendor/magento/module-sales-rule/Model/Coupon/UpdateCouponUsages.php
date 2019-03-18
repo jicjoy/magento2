@@ -126,6 +126,10 @@ class UpdateCouponUsages
         } elseif ($increment) {
             $ruleCustomer->setCustomerId($customerId)->setRuleId($ruleId)->setTimesUsed(1);
         }
+        else
+        {
+            return false;
+        }
         $ruleCustomer->save();
     }
 
